@@ -30,7 +30,7 @@ module Fog
       end
 
       def components_to_header components
-        "#{components['X-Amz-Algorithm']} Credential=#{components['X-Amz-Credential']}, SignedHeaders=#{components['X-Amz-SignedHeaders']}, Signature=#{components['X-Amz-Signature']}" 
+        "#{components['X-Amz-Algorithm']} Credential=#{components['X-Amz-Credential']}, SignedHeaders=#{components['X-Amz-SignedHeaders']}, Signature=#{components['X-Amz-Signature']}"
       end
 
       def signature_components(params, date, body_sha)
@@ -79,8 +79,6 @@ DATA
       protected
 
       def canonical_path(path)
-        #leading and trailing repeated slashes are collapsed, but not ones that appear elsewhere
-        path = path.gsub(%r{\A/+},'/').gsub(%r{/+\z},'/')
         components = path.split('/',-1)
         path = components.inject([]) do |acc, component|
           case component
